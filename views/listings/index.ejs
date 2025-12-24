@@ -1,0 +1,46 @@
+<% layout('/layouts/boilerplate.ejs') %>
+
+<body>
+
+    <!-- Main Content -->
+    <main class="container">
+        <div class="arts-header">
+            <h1>Discover Amazing Artworks</h1>
+            <p style="color: gray;">Browse through our collection of curated art pieces from talented artists worldwide.</p>
+        </div>
+
+        <% if (arts && arts.length > 0) { %>
+            <div class="arts-grid">
+                <% arts.forEach(art => { %>
+                    <div class="art-card">
+                        <a href="/arts/<%= art._id.toString() %>" class="art-card-image-link">
+                            <img src="<%= art.image.url %>" alt="<%= art.title %>" class="art-card-image">
+                        </a>
+                        <div class="art-card-content">
+                            <div class="art-card-price"><%= art.price.toLocaleString("en-IN") %></div>
+                            <h3 class="art-card-title">
+                                <a href="/arts/<%= art._id.toString() %>"><%= art.title %></a>
+                            </h3>
+                            <div class="art-card-meta">
+                                <span class="art-card-artist"><%= art.artist %></span>
+                                <span class="art-card-type"><%= art.type %></span>
+                            </div>
+                            <div class="art-card-medium">
+                                <%= art.medium %> • <%= art.yearCreated %>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        <% } else { %>
+            <div class="no-reviews">
+                <h3>No Artworks Found</h3>
+                <p>Be the first to upload your artwork!</p>
+                <a href="/arts/create" class="bttn bttn-primary mt-3">Upload Art</a>
+            </div>
+        <% } %>
+    </main>
+
+</body>
+
+    </html>

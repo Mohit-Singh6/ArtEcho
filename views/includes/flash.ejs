@@ -1,0 +1,17 @@
+<% if (successMsg != "") { %>
+    <div class="flash-messages">
+        <div class="flash-message flash-success">
+            <span><%= successMsg %></span>
+            <button class="flash-close" onclick="this.parentElement.remove()">×</button>
+        </div>
+    </div>
+<% } %>
+
+<% if (errorMsg != "") { %>
+    <div class="flash-messages">
+        <div class="flash-message flash-error">
+            <span><%= errorMsg %></span>
+            <button class="flash-close" onclick="this.parentElement.remove()">×</button>
+        </div>
+    </div>
+<% } %>

@@ -1,0 +1,49 @@
+<nav class="sticky-top">
+    <nav class="navbar bg-body-tertiary" style="padding-left:4%; padding-right:4%;">
+        <div class="container" style="width:100%">
+            <a id="navbar-brand" href="/arts">
+                <img src="/images/artEchoLogo.png" alt="ArtEcho" width="100" height="70">
+            </a>
+            <form class="d-flex" role="search" action="/arts/search">
+                <div class="searchDiv">
+                    <input class="form-control me-2 searchBox" type="search" placeholder="Search for arts" name="q">
+                </div>
+
+                    <% if (!currUser) { %>
+                    <a href="/signup" style="text-decoration: none;">
+                        <h3 class="signupBtn">SignUp</h3>
+                    </a>
+                    <a href="/login" style="text-decoration: none;">
+                        <h3 class="loginBtn">Login</h3>
+                    </a>
+                    <% } else { %>
+                    <a href="/logout" style="text-decoration: none;">
+                        <h3 class="loginBtn">Logout</h3>
+                    </a>
+                <% } %>
+
+            </form>
+        </div>
+    </nav>
+    <nav class="navbar navbar-expand-md bg-body-tertiary" style="margin-bottom: 30px;">
+        <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNavAltMarkup" style="margin-left:4%; margin-right:4%;">
+                <div class="navbar-nav navBar">
+                    <a class="nav-link navBarOptions" href="/arts">All Arts</a>
+                    <a class="nav-link navBarOptions" href="/arts/paintings">Paintings</a>
+                    <a class="nav-link navBarOptions" href="/arts/photograph">Photographs</a>
+                    <a class="nav-link navBarOptions" href="/arts/sculptures">Sculptures</a>
+                    <a class="nav-link navBarOptions" href="/arts/digitalart">Digital Arts</a>
+                    <a class="nav-link navBarOptions" href="/arts/multimedia">Multimedia</a>
+                    <a class="nav-link navBarOptions" href="/arts/otherarts">Other Arts</a>
+                    <a class="nav-link navBarOptions" href="/arts/create">Upload your art</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+</nav>

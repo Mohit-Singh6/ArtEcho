@@ -1,0 +1,73 @@
+<% layout('/layouts/boilerplate.ejs') %>
+
+    <body>
+        <main class="container">
+        <div class="form-container">
+            <h1>Share Your Artwork</h1>
+            <p class="text-light mb-4">Tell us about your masterpiece</p>
+            
+            <form method="post" action="/arts" novalidate enctype="multipart/form-data">
+                <div class="form-group">
+                    <label for="title" class="form-label">Title</label>
+                    <input type="text" class="form-control" id="title" name="art[title]" placeholder="Enter artwork title" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="artist" class="form-label">Artist</label>
+                    <input type="text" class="form-control" id="artist" name="art[artist]" placeholder="Enter artist's name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="type" class="form-label">Art Type</label>
+                    <select class="form-select" id="type" name="art[type]" required>
+                        <option value="" disabled selected>Select art type</option>
+                        <option value="Paintings">Paintings</option>
+                        <option value="Photograph">Photograph</option>
+                        <option value="Sculpture">Sculpture</option>
+                        <option value="Digital Art">Digital Art</option>
+                        <option value="Mixed Media">Mixed Media</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="medium" class="form-label">Medium</label>
+                    <input type="text" class="form-control" id="medium" name="art[medium]" placeholder="e.g., Oil on Canvas, Digital, etc.">
+                </div>
+
+                <div class="form-group">
+                    <label for="yearCreated" class="form-label">Year Created</label>
+                    <input type="number" class="form-control" id="yearCreated" name="art[yearCreated]" placeholder="2025" min="1000" max="<%= new Date().getFullYear() + 5 %>" value="<%= new Date().getFullYear() %>">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Artwork Image</label>
+                    <div class="file-upload">
+                        <input type="file" id="image" name="art[image]" accept="image/jpeg,image/png" required>
+                        <label for="image" class="file-upload-label">
+                            <span class="file-upload-text">Click to upload artwork image</span>
+                            <span class="file-upload-hint">JPEG or PNG format, max 5MB</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="price" class="form-label">Price (₹)</label>
+                    <input type="number" class="form-control" id="price" name="art[price]" placeholder="Enter price in rupees" min="0" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-textarea" id="description" name="art[description]" placeholder="Share the story behind your artwork, inspiration, techniques used, etc." rows="5"></textarea>
+                </div>
+
+                <div class="form-actions">
+                    <a href="/arts" class="bttn bttn-secondary">Cancel</a>
+                    <button type="submit" class="bttn bttn-primary">Upload Artwork</button>
+                </div>
+            </form>
+        </div>
+    </main>
+    </body>
+
+    </html>
