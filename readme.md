@@ -1,6 +1,6 @@
 # ArtEcho – MERN Stack Project
 
-🔗 Live Demo: https://artecho.onrender.com
+🔗 Live Demo: https://artecho.onrender.com/arts
 
 ## Description
 ArtEcho is a full-stack art marketplace where users can upload artworks,
