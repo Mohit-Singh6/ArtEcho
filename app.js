@@ -141,9 +141,11 @@ app.get("/", (req, res) => {
     res.send("Nothing to see here. Go to /arts");
 });
 
-app.get("/healix-error", (req, res, next) => {
-    next(new Error("An error occurred!"));
-});
+if (process.env.NODE_ENV !== "production") {
+    app.get("/healix-error", (req, res, next) => {
+        next(new Error("An error occurred!"));
+    });
+}
 
 
 // Handling routes
