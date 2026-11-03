@@ -1,3 +1,4 @@
+const { healixErrorTrackingMiddleware } = require("./healix-error-reporter.server");
 if (process.env.NODE_ENV != "production") {
     require("dotenv").config();
 }
@@ -153,6 +154,8 @@ app.all (/.*/, (req,res,next) => {
 
 
 // Error Handling Middleware (for all the errors that might occur above this code)
+
+app.use(healixErrorTrackingMiddleware);
 app.use((err, req, res, next) => {
     console.log(err.name);
     const {statusCode = 400, message = "Error"} = err;
