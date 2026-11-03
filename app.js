@@ -108,7 +108,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "/public")));
 
-const port = 3000;
+const port = 8080;
 
 app.listen(port, () => {
     console.log("SERVER STARTED <+>");
@@ -139,6 +139,11 @@ main()
 // EXTRA
 app.get("/", (req, res) => {
     res.send("Nothing to see here. Go to /arts");
+});
+
+// Trigger a deliberate error so the healix middleware captures it.
+app.get("/healix-error", (req, res, next) => {
+    next(new Error("Intentional Healix error test route"));
 });
 
 
