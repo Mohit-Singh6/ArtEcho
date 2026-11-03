@@ -141,9 +141,8 @@ app.get("/", (req, res) => {
     res.send("Nothing to see here. Go to /arts");
 });
 
-// Trigger a deliberate error so the healix middleware captures it.
 app.get("/healix-error", (req, res, next) => {
-    next(new Error("Intentional Healix error test route"));
+    next(new Error("An error occurred!"));
 });
 
 
