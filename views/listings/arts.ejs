@@ -1,7 +1,5 @@
 <% layout('/layouts/boilerplate.ejs') %>
 
-<% if (!art.owner || !art.owner.username) { throw new Error('Artwork owner username is missing'); } %>
-
 <body>
     <main class="art-detail-container">
         <div class="art-detail-grid">
@@ -112,7 +110,6 @@
             <% if (art.reviews.length > 0) { %>
                 <div class="reviews-grid">
                     <% art.reviews.forEach(rev => { %>
-                        <% if (!rev.owner || !rev.owner.username) { throw new Error('Review owner username is missing'); } %>
                         <div class="review-card">
                             <div class="review-header">
                                 <span class="review-user"><%= rev.owner.username %></span>
