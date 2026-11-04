@@ -52,11 +52,8 @@ module.exports.searchArt = async (req, res, next) => {
 
 module.exports.showArt = async (req, res) => {
     const artId = req.params.id;
-    const art = await listing.findById(artId).populate("reviews").populate("owner").populate({
+    const art = await listing.findById(artId).populate("reviews").populate({
         path: 'reviews',
-        populate: {
-            path: 'owner'
-        }
     });
     console.log(art);
 
@@ -65,7 +62,7 @@ module.exports.showArt = async (req, res) => {
         req.flash('err', "The art you are looking for - does not exist or was deleted!");
         res.redirect('/arts');
     }
-    else res.render("listings/arts.ejs", { arts }); // writing else here is very important as if you don't then even if the art doesnot exists then also this might run
+    else res.render("listings/arts.ejs", { art }); // writing else here is very important as if you don't then even if the art doesnot exists then also this might run
 };
 
 module.exports.createForm = async (req, res) => {
