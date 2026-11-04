@@ -26,6 +26,12 @@ router
     //     res.send(req.file);
     // })
 
+    // Deliberate test probe used by QA/Uptime monitoring
+router.get("/api/health/test-probe", (req, res, next) => {
+  const err = new Error("Intentional QA health-check failure probe");
+  err.status = 500;
+  next(err);
+});
 router.get("/paintings", wrapAsync(artController.showPaintings));
 router.get("/photograph", wrapAsync(artController.showPhotograph));
 router.get("/sculptures", wrapAsync(artController.showSculptures));
