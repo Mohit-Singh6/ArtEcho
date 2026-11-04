@@ -51,11 +51,14 @@ module.exports.searchArt = async (req, res, next) => {
 };
 
 module.exports.showArt = async (req, res) => {
-    const artId = req.params.id;
-    const art = await listing.findById(artId).populate("reviews").populate({
-        path: 'reviews',
-    });
-    console.log(art);
+const artId = req.params.id;
+const art = await listing.findById(artId)
+.populate("reviews")
+.populate({
+path: 'reviews',
+})
+.populate("owner");
+console.log(art);
 
     // flash message in case the art doesn't exists
     if (!art) {
