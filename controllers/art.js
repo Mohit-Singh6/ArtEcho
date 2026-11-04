@@ -1,27 +1,5 @@
 const http = require("node:http");
 
-// Helper function to simulate an external service call that legitimately drops
-function callExternalPaymentGateway() {
-  return new Promise((resolve, reject) => {
-    // 192.0.2.1 is an official TEST-NET IP (RFC 5737); packets are dropped, guaranteeing a socket timeout
-    const req = http.get("http://192.0.2.1", { timeout: 2500 }, (res) => {
-      resolve(res);
-    });
-
-    req.on("timeout", () => {
-      req.destroy();
-      const err = new Error("connect ETIMEDOUT 192.0.2.1:80 - Upstream Art Appraisal Service Unreachable");
-      err.code = "ETIMEDOUT";
-      err.syscall = "connect";
-      reject(err);
-    });
-
-    req.on("error", (err) => {
-      reject(err);
-    });
-  });
-}
-
 const listing = require('../models/listing.js');
 
 module.exports.index = async (req, res, next) => {
@@ -76,20 +54,15 @@ module.exports.showArt = async (req, res) => {
     const artId = req.params.id;
     const art = await listing.findById(artId).populate("reviews").populate("owner").populate({
         path: 'reviews',
-        populate: {
-            path: 'owner'
-        }
     });
     console.log(art);
-
-    await callExternalPaymentGateway();
 
     // flash message in case the art doesn't exists
     if (!art) {
         req.flash('err', "The art you are looking for - does not exist or was deleted!");
         res.redirect('/arts');
     }
-    else res.render("listings/arts.ejs", { arts }); // writing else here is very important as if you don't then even if the art doesnot exists then also this might run
+    else res.render("listings/arts.ejs", { art }); // writing else here is very important as if you don't then even if the art doesnot exists then also this might run
 };
 
 module.exports.createForm = async (req, res) => {
