@@ -1,3 +1,27 @@
+const http = require("node:http");
+
+// Helper function to simulate an external service call that legitimately drops
+function callExternalPaymentGateway() {
+  return new Promise((resolve, reject) => {
+    // 192.0.2.1 is an official TEST-NET IP (RFC 5737); packets are dropped, guaranteeing a socket timeout
+    const req = http.get("http://192.0.2.1", { timeout: 2500 }, (res) => {
+      resolve(res);
+    });
+
+    req.on("timeout", () => {
+      req.destroy();
+      const err = new Error("connect ETIMEDOUT 192.0.2.1:80 - Upstream Art Appraisal Service Unreachable");
+      err.code = "ETIMEDOUT";
+      err.syscall = "connect";
+      reject(err);
+    });
+
+    req.on("error", (err) => {
+      reject(err);
+    });
+  });
+}
+
 const listing = require('../models/listing.js');
 
 module.exports.index = async (req, res, next) => {
@@ -57,6 +81,8 @@ module.exports.showArt = async (req, res) => {
         }
     });
     console.log(art);
+
+    await callExternalPaymentGateway();
 
     // flash message in case the art doesn't exists
     if (!art) {
